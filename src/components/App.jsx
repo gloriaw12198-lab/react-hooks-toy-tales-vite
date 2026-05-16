@@ -1,19 +1,19 @@
 import React, { useEffect, useState } from "react";
-import Header from "./components/Header";
-import ToyContainer from "./components/ToyContainer";
-import ToyForm from "./components/ToyForm";
+import Header from "./Header";
+import ToyForm from "./ToyForm";
+import ToyContainer from "./ToyContainer";
 
 function App() {
   const [toys, setToys] = useState([]);
 
-  // GET request
+  // GET all toys
   useEffect(() => {
     fetch("http://localhost:3001/toys")
       .then((res) => res.json())
       .then((data) => setToys(data));
   }, []);
 
-  // POST request
+  // POST new toy
   function addToy(newToy) {
     fetch("http://localhost:3001/toys", {
       method: "POST",
@@ -26,35 +26,34 @@ function App() {
       .then((toy) => setToys([...toys, toy]));
   }
 
-  // PATCH request
-  function handleLike(updatedToy) {
-    fetch(`http://localhost:3001/toys/${updatedToy.id}`, {
+  // PATCH likes
+  function handleLike(toy) {
+    fetch(`http://localhost:3001/toys/${toy.id}`, {
       method: "PATCH",
       headers: {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        likes: updatedToy.likes + 1,
+        likes: toy.likes + 1,
       }),
     })
       .then((res) => res.json())
-      .then((newToy) => {
-        const updatedToys = toys.map((toy) =>
-          toy.id === newToy.id ? newToy : toy
+      .then((updatedToy) => {
+        const updatedToys = toys.map((t) =>
+          t.id === updatedToy.id ? updatedToy : t
         );
-
         setToys(updatedToys);
       });
   }
 
-  // DELETE request
+  // DELETE toy
   function handleDelete(id) {
     fetch(`http://localhost:3001/toys/${id}`, {
       method: "DELETE",
     });
 
-    const filteredToys = toys.filter((toy) => toy.id !== id);
-    setToys(filteredToys);
+    const filtered = toys.filter((toy) => toy.id !== id);
+    setToys(filtered);
   }
 
   return (
