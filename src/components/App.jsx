@@ -5,6 +5,7 @@ import ToyContainer from "./ToyContainer";
 
 function App() {
   const [toys, setToys] = useState([]);
+  const [showForm, setShowForm] = useState(false);
 
   // GET all toys
   useEffect(() => {
@@ -59,7 +60,12 @@ function App() {
   return (
     <div className="App">
       <Header />
-      <ToyForm addToy={addToy} />
+      <div className="buttonContainer">
+        <button onClick={() => setShowForm((showForm) => !showForm)}>
+          Add a Toy
+        </button>
+      </div>
+      {showForm ? <ToyForm addToy={addToy} /> : null}
       <ToyContainer
         toys={toys}
         onLike={handleLike}

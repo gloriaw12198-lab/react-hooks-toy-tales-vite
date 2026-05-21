@@ -28,7 +28,7 @@ function ToyForm({ addToy }) {
         <input
           type="text"
           name="name"
-          placeholder="Toy name"
+          placeholder="Enter a toy's name..."
           className="input-text"
           value={name}
           onChange={(e) => setName(e.target.value)}
@@ -39,7 +39,7 @@ function ToyForm({ addToy }) {
         <input
           type="text"
           name="image"
-          placeholder="Image URL"
+          placeholder="Enter a toy's image URL..."
           className="input-text"
           value={image}
           onChange={(e) => setImage(e.target.value)}
@@ -49,7 +49,7 @@ function ToyForm({ addToy }) {
 
         <input
           type="submit"
-          value="Add Toy"
+          value="Create New Toy"
           className="submit"
         />
       </form>
